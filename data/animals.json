@@ -117,6 +117,33 @@
         "hungry"
       ],
       "id": "11"
+    },
+    {
+      "name": "Simba",
+      "species": "Leo",
+      "diet": "carivore",
+      "personalityTraits": [
+        "happy"
+      ],
+      "id": "12"
+    },
+    {
+      "name": "Simba",
+      "species": "Leo",
+      "diet": "carivore",
+      "personalityTraits": [
+        "happy"
+      ],
+      "id": "13"
+    },
+    {
+      "name": "Simba",
+      "species": "Leo",
+      "diet": "carivore",
+      "personalityTraits": [
+        "happy"
+      ],
+      "id": "14"
     }
   ]
 }

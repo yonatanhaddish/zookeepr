@@ -1,17 +1,15 @@
-const express= require('express');
-const PORT= process.env.PORT || 3001;
-const fs= require('fs');
-const { clear } = require('node:console');
-const { type } = require('node:os');
-const path= require('path');
-const { setFlagsFromString } = require('v8');
+const fs = require('fs');
+const path = require('path');
+const express = require('express');
+const { animals } = require('./data/animals');
 
-const app= express();
 
-app.use(express.urlencoded({extended: true}));
+const PORT = process.env.PORT || 3001;
+const app = express();
+
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
-const { animals }= require('./data/animals.json');
+app.use(express.static('public'));
 
 function findById(id, animalsArray) {
     const result= animalsArray.filter(animal => animal.id === id)[0];
@@ -69,7 +67,7 @@ function validateAnimal(animal) {
     if (!animal.diet || typeof animal.diet !== 'string') {
         return false;
     }
-    if (!animal.personalityTraits || typeof animal.personalityTraits !== 'string') {
+    if (!animal.personalityTraits || !Array.isArray(animal.personalityTraits)) {
         return false;
     }
     return true;
@@ -99,6 +97,22 @@ app.post('/api/animals', (req, res) => {
         const animal= createNewAnimal(req.body, animals);
         res.json(animal);
     }  
+});
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
+app.get('/animals', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/animals.html'));
+});
+
+app.get('/zookeepers', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/zookeepers.html'));
+});
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
 });
 
 app.listen(PORT, () => {
